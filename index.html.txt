@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>🎁 لعبة الصناديق المزينة</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+h2 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 5px #000;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  max-width: 600px;
+  margin: auto;
+}
+.box {
+  background: linear-gradient(145deg, #ff7f50, #ff6347);
+  padding: 25px;
+  cursor: pointer;
+  border-radius: 15px;
+  font-size: 18px;
+  color: #fff;
+  box-shadow: 3px 3px 10px #00000050;
+  transition: all 0.2s ease;
+}
+.box:hover {
+  transform: scale(1.1);
+  box-shadow: 5px 5px 15px #00000080;
+}
+.box:active {
+  transform: scale(1);
+  box-shadow: 0 0 20px #ffff00;
+}
+.box.disabled {
+  background: #333;
+  cursor: not-allowed;
+  color: #888;
+  box-shadow: none;
+}
+</style>
+</head>
+<body>
+
+<h2>🎁 اختر صندوقك</h2>
+
+<div class="grid" id="grid"></div>
+
+<script>
+// إعداد الفائزين
+const winnerBoxes = [4, 12, 25, 37]; // 4 صناديق فائزة
+let clickedBoxes = [];
+
+for (let i = 1; i <= 40; i++) {
+  let box = document.createElement("div");
+  box.className = "box";
+  box.innerText = "صندوق " + i;
+
+  box.onclick = function() {
+    if (clickedBoxes.includes(i)) return;
+    clickedBoxes.push(i);
+
+    if (winnerBoxes.includes(i)) {
+      alert("🎉 مبرووك لقد فزت!");
+    } else {
+      alert("❌ ما حالفك الحظ 😅");
+    }
+
+    // قفل جميع الصناديق بعد الضغط
+    document.querySelectorAll(".box").forEach(b => b.classList.add("disabled"));
+  };
+
+  document.getElementById("grid").appendChild(box);
+}
+</script>
+
+</body>
+</html>
